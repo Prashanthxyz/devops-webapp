@@ -16,28 +16,6 @@ jobs:
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4
-      $ cat docker-ci.yml 
-name: Docker CI Pipeline
-
-on:
-  push:
-    branches:
-      - master
-
-permissions:
-  id-token: write
-  contents: read
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout source code
-        uses: actions/checkout@v4
-
-      - name: Build Docker image
-        run: docker build -t devops-webapp:v1 .
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -47,4 +25,3 @@ jobs:
 
       - name: Build Docker image
         run: docker build -t devops-webapp:v1 .
-
