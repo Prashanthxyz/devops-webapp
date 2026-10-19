@@ -25,5 +25,12 @@ jobs:
       
       - name: Login to Amazon ECR
         uses: aws-actions/amazon-ecr-login@v2
+      
       - name: Build Docker image
         run: docker build -t devops-webapp:v1 .
+      
+      - name: Tag Docker image for ECR
+        run: docker tag devops-webapp:v1 512399769425.dkr.ecr.us-east-2.amazonaws.com/devops-webapp:v1
+
+      - name: Push Docker image to ECR
+        run: docker push 512399769425.dkr.ecr.us-east-2.amazonaws.com/devops-webapp:v1
