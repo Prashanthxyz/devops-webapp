@@ -25,12 +25,19 @@ jobs:
       
       - name: Login to Amazon ECR
         uses: aws-actions/amazon-ecr-login@v2
-      
+
       - name: Build Docker image
-        run: docker build -t devops-webapp:v1 .
+        run: |
+          IMAGE_TAG="${GITHUB_SHA::7}"
+          docker build -t devops-webapp:$IMAGE_TAG .
       
       - name: Tag Docker image for ECR
-        run: docker tag devops-webapp:v1 512399769425.dkr.ecr.us-east-2.amazonaws.com/devops-webapp:v1
+        run: |
+          IMAGE_TAG="${GITHUB_SHA::7}"
+          docker tag devops-webapp:$IMAGE_TAG \
+          512399769425.dkr.ecr.us-east-2.amazonaws.com/devops-webapp:$IMAGE_TAG  
 
       - name: Push Docker image to ECR
-        run: docker push 512399769425.dkr.ecr.us-east-2.amazonaws.com/devops-webapp:v1
+        run: |
+          IMAGE_TAG="${GITHUB_SHA::7}"
+          docker push 512399769425.dkr.ecr.us-east-2.amazonaws.com/devops-webapp:$IMAGE_TAG
